@@ -1,0 +1,14 @@
+.todo-item {
+    color: #111111;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    &--done {
+        color: red;
+        text-decoration: line-through;
+    }
+    &__icon {
+        margin-right: 5px;
+        cursor: pointer;
+    }
+}
