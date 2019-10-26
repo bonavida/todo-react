@@ -1,0 +1,14 @@
+.add-todo-item {
+  &__container {
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    margin: 20px 0;
+  }
+  &__button {
+    margin-left: 8px;
+    &:focus {
+      outline: 0; 
+    }
+  }
+}

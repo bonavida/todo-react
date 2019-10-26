@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TodoList from 'components/TodoList';
 
 import './App.scss';
+import AddTodoItem from 'components/AddTodoItem/AddTodoItem';
 
 const initialItems = [
   { id: 1, value: "Learn React", done: false },
@@ -19,14 +20,25 @@ class App extends Component {
     this.setState({ items: initialItems });
   }
 
-  removeItem = (itemId) => {
+  addItem = itemValue => {
+    const { items } = this.state;
+    const newItem = {
+      id: items.length + 1,
+      value: itemValue,
+      done: false
+    };
+    const todoItems = [ ...items, newItem ];
+    this.setState({ items: todoItems });
+  }
+
+  removeItem = itemId => {
     const { items } = this.state;
     const todoItems = items.filter(item => item.id !== itemId);
 
     this.setState({ items: todoItems });
   }
 
-  toggleTodoDone = (itemId) => {
+  toggleTodoDone = itemId => {
     const { items } = this.state;
     const todoItems = [ ...items ];
     const todoItem = todoItems.find(item => item.id === itemId);
@@ -42,6 +54,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>React ToDo List</h1>
+        <AddTodoItem addItem={this.addItem} />
         <TodoList
           items={items}
           removeItem={this.removeItem}
