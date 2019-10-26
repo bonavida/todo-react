@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import TodoList from 'components/TodoList';
 
@@ -11,58 +11,44 @@ const initialItems = [
   { id: 3, value: "Buy flowers", done: true },
 ];
 
-class App extends Component {
-  state = {
-    items: [],
-  };
+function App() {
+  const [items, setItems] = useState(initialItems);
 
-  componentDidMount() {
-    this.setState({ items: initialItems });
-  }
-
-  addItem = itemValue => {
-    const { items } = this.state;
+  const addItem = itemValue => {
     const newItem = {
       id: items.length + 1,
       value: itemValue,
       done: false
     };
     const todoItems = [ ...items, newItem ];
-    this.setState({ items: todoItems });
+    setItems(todoItems);
   }
 
-  removeItem = itemId => {
-    const { items } = this.state;
+  const removeItem = itemId => {
     const todoItems = items.filter(item => item.id !== itemId);
-
-    this.setState({ items: todoItems });
+    setItems(todoItems);
   }
 
-  toggleTodoDone = itemId => {
-    const { items } = this.state;
+  const toggleTodoDone = itemId => {
     const todoItems = [ ...items ];
     const todoItem = todoItems.find(item => item.id === itemId);
     if (todoItem) {
       todoItem.done = !todoItem.done;
-      this.setState({ items: todoItems });
+      setItems(todoItems);
     }
   }
 
-  render() {
-    const { items } = this.state;
-
-    return (
-      <div className="App">
-        <h1>React ToDo List</h1>
-        <AddTodoItem addItem={this.addItem} />
-        <TodoList
-          items={items}
-          removeItem={this.removeItem}
-          toggleTodoDone={this.toggleTodoDone}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <h1>React ToDo List</h1>
+      <AddTodoItem addItem={addItem} />
+      <TodoList
+        items={items}
+        removeItem={removeItem}
+        toggleTodoDone={toggleTodoDone}
+      />
+    </div>
+  )
 }
 
 export default App;
