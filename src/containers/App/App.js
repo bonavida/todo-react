@@ -6,6 +6,7 @@ import './App.scss';
 
 const App = () => (
   <div className="App">
+    <h1>React ToDo List</h1>
     <TodoList />
   </div>
 );

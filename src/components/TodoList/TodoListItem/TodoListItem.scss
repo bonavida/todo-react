@@ -1,8 +1,17 @@
 .todo-item {
-    color: #111111;
-    text-decoration: none;
     width: 100%;
+    color: #111111;
     text-align: center;
+    text-decoration: none;
+    user-select: none;
+    &:first-child {
+        border-top-left-radius: 5px !important;
+        border-top-right-radius: 5px !important;
+    }
+    &:last-child {
+        border-bottom-left-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
+    }
     &--done {
         color: red;
         text-decoration: line-through;
