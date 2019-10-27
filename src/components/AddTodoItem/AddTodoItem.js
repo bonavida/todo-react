@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { keyCodes } from 'utils/constants';
 
 import './AddTodoItem.scss';
 
@@ -14,6 +15,12 @@ class AddTodoItem extends Component {
 
   changeHandler = event => {
     this.setState({ itemValue: event.currentTarget.value });
+  }
+
+  keyDownHandler = event => {
+    if (event.keyCode === keyCodes.ENTER) {
+      this.addNewItem();
+    }
   }
 
   addNewItem = () => {
@@ -34,6 +41,7 @@ class AddTodoItem extends Component {
           placeholder="Add a new ToDo item"
           value={itemValue}
           onChange={this.changeHandler}
+          onKeyDown={this.keyDownHandler}
         />
         <button
           className="btn btn-primary add-todo-item__button"

@@ -3,3 +3,7 @@ export const VisibilityFilters = {
   SHOW_ACTIVE: 'SHOW_ACTIVE',
   SHOW_COMPLETED: 'SHOW_COMPLETED',
 };
+
+export const keyCodes = {
+  ENTER: 13
+};
