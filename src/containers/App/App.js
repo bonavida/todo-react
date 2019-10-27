@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { VisibilityFilters } from 'utils/constants';
 
 import TodoList from 'components/TodoList';
-import AddTodoItem from 'components/AddTodoItem/AddTodoItem';
-import TodoFilter from 'components/TodoFilter/TodoFilter';
+import AddTodoItem from 'components/AddTodoItem';
+import TodoFilter from 'components/TodoFilter';
 
 import './App.scss';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { VisibilityFilters } from 'utils/constants';
-import FilterButton from './FilterButton/FilterButton';
+import FilterButton from './FilterButton';
 
 import './TodoFilter.scss';
 
