@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { VisibilityFilters } from 'utils/constants';
 
 import TodoList from 'components/TodoList';
+import AddTodoItem from 'components/AddTodoItem/AddTodoItem';
+import TodoFilter from 'components/TodoFilter/TodoFilter';
 
 import './App.scss';
-import AddTodoItem from 'components/AddTodoItem/AddTodoItem';
 
 const initialItems = [
   { id: 1, value: "Learn React", done: false },
@@ -14,6 +16,7 @@ const initialItems = [
 class App extends Component {
   state = {
     items: [],
+    filter: VisibilityFilters.SHOW_ALL
   };
 
   componentDidMount() {
@@ -48,15 +51,31 @@ class App extends Component {
     }
   }
 
+  filterItems = filter => {
+    this.setState({ filter });
+  }
+
   render() {
-    const { items } = this.state;
+    const { items, filter } = this.state;
+
+    const filteredItems = items.filter(todo => {
+      switch (filter) {
+        case VisibilityFilters.SHOW_ACTIVE:
+          return !todo.done;
+        case VisibilityFilters.SHOW_COMPLETED:
+          return todo.done;
+        default:
+          return true;
+      }
+    });
 
     return (
       <div className="App">
         <h1>React ToDo List</h1>
         <AddTodoItem addItem={this.addItem} />
+        <TodoFilter active={filter} filterItems={this.filterItems} />
         <TodoList
-          items={items}
+          items={filteredItems}
           removeItem={this.removeItem}
           toggleTodoDone={this.toggleTodoDone}
         />
