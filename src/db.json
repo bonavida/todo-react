@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "597bc0d2-f9b6-4985-a40b-135dee11eff7",
+      "value": "Learn React",
+      "done": false
+    },
+    {
+      "id": "d043594d-8663-476f-b861-3b9c3edc1c46",
+      "value": "Go shopping",
+      "done": true
+    },
+    {
+      "id": "c9d35887-baf0-4209-a775-77ae108e1223",
+      "value": "Buy flowers",
+      "done": true
+    }
+  ]
+}
