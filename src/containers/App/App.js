@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import uuid from 'uuid/v4';
+
+import { getTodos, saveTodo, editTodo, deleteTodo } from 'services/todoService';
 import { VisibilityFilters } from 'utils/constants';
 
 import TodoList from 'components/TodoList';
@@ -7,12 +10,6 @@ import TodoFilter from 'components/TodoFilter';
 
 import './App.scss';
 
-const initialItems = [
-  { id: 1, value: "Learn React", done: false },
-  { id: 2, value: "Go shopping", done: true },
-  { id: 3, value: "Buy flowers", done: true },
-];
-
 class App extends Component {
   state = {
     items: [],
@@ -20,34 +17,36 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({ items: initialItems });
+    this.getItems();
   }
 
-  addItem = itemValue => {
-    const { items } = this.state;
+  async getItems() {
+      const items = await getTodos();
+      items && this.setState({ items });
+  }
+
+  addItem = async(itemValue) => {
     const newItem = {
-      id: items.length + 1,
+      id: uuid(),
       value: itemValue,
       done: false
     };
-    const todoItems = [ ...items, newItem ];
-    this.setState({ items: todoItems });
+    const res = await saveTodo(newItem);
+    res && this.getItems();
   }
 
-  removeItem = itemId => {
-    const { items } = this.state;
-    const todoItems = items.filter(item => item.id !== itemId);
-
-    this.setState({ items: todoItems });
+  removeItem = async(itemId) => {
+    const res = await deleteTodo(itemId);
+    res && this.getItems();
   }
 
-  toggleTodoDone = itemId => {
+  toggleTodoDone = async(itemId) => {
     const { items } = this.state;
-    const todoItems = [ ...items ];
-    const todoItem = todoItems.find(item => item.id === itemId);
+    const todoItem = items.find(item => item.id === itemId);
     if (todoItem) {
-      todoItem.done = !todoItem.done;
-      this.setState({ items: todoItems });
+      const updatedTodoItem = { ...todoItem, done: !todoItem.done };
+      const res = await editTodo(updatedTodoItem);
+      res && this.getItems();
     }
   }
 
