@@ -1,58 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { keyCodes } from 'utils/constants';
 
 import './AddTodoItem.scss';
 
-class AddTodoItem extends Component {
-  state = {
-    itemValue: ''
-  };
-  inputRef = React.createRef();
+const AddTodoItem = props => {
+  const [itemValue, setItemValue] = useState('');
+  const inputRef = React.createRef();
 
-  componentDidMount() {
-    this.inputRef && this.inputRef.current && this.inputRef.current.focus();
+  useEffect(() => {
+    inputRef && inputRef.current && inputRef.current.focus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const changeHandler = event => {
+    setItemValue(event.currentTarget.value);
   }
 
-  changeHandler = event => {
-    this.setState({ itemValue: event.currentTarget.value });
-  }
-
-  keyDownHandler = event => {
+  const keyDownHandler = event => {
     if (event.keyCode === keyCodes.ENTER) {
-      this.addNewItem();
+      addNewItem();
     }
   }
 
-  addNewItem = () => {
-    const { itemValue } = this.state;
-    this.props.addItem(itemValue);
-    this.setState({ itemValue: '' });
+  const addNewItem = () => {
+    props.addItem(itemValue);
+    setItemValue('');
   }
 
-  render () {
-    const { itemValue } = this.state;
-
-    return (
-      <div className="add-todo-item__container">
-        <input
-          ref={this.inputRef}
-          type="text"
-          className="form-control add-todo-item__input"
-          placeholder="Add a new ToDo item"
-          value={itemValue}
-          onChange={this.changeHandler}
-          onKeyDown={this.keyDownHandler}
-        />
-        <button
-          className="btn btn-primary add-todo-item__button"
-          disabled={!itemValue}
-          onClick={this.addNewItem}
-        >
-          Add
-        </button> 
-      </div>
-    );   
-  }
+  return (
+    <div className="add-todo-item__container">
+      <input
+        ref={inputRef}
+        type="text"
+        className="form-control add-todo-item__input"
+        placeholder="Add a new ToDo item"
+        value={itemValue}
+        onChange={changeHandler}
+        onKeyDown={keyDownHandler}
+      />
+      <button
+        className="btn btn-primary add-todo-item__button"
+        disabled={!itemValue}
+        onClick={addNewItem}
+      >
+        Add
+      </button> 
+    </div>
+  );   
 }
 
 export default AddTodoItem;
