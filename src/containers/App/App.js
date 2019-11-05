@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
+import { ToastContainer } from 'react-toastify';
 
 import { getTodos, saveTodo, editTodo, deleteTodo } from 'services/todoService';
 import { VisibilityFilters } from 'utils/constants';
@@ -8,6 +9,7 @@ import TodoList from 'components/TodoList';
 import AddTodoItem from 'components/AddTodoItem';
 import TodoFilter from 'components/TodoFilter';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
 
 const App = () => {
@@ -73,6 +75,7 @@ const App = () => {
         removeItem={removeItem}
         toggleTodoDone={toggleTodoDone}
       />
+      <ToastContainer />
     </div>
   );
 }

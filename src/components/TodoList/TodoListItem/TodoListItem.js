@@ -2,11 +2,15 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
+import { useToast } from '../../../hooks/toasts';
+
 import './TodoListItem.scss';
 
 const TodoListItem = ({ item, removeItem, toggleTodoDone }) => {
 
   const todoClassName = item.done ? 'todo-item--done' : '';
+
+  useToast(item.id, 'Well done!', [item.done]);
 
   return (
     <li className="list-group-item todo-item">
